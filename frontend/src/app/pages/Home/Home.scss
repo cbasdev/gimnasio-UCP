@@ -1,19 +1,46 @@
 @import '../../../../public/theme.scss';
 
 .screen {
-  background-image: url('../../../assets/3.jpg');
-  font-weight: 900;
-  background-position: center;
-  background-size: 100%;
-  background-repeat: no-repeat;
+  background-color: #000;
+  width: 100%;
+  height: 100%;
 
-  .card {
-    h1 {
-      margin: 0;
-      color: $red;
-      text-align: center;
-      letter-spacing: 3px;
+  .left-div {
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 15%;
+    padding-left: 10%;
+    text-align: center;
+    color: $white;
+    width: 30%;
+    .dark-red {
+      color: $dark-red;
     }
-    height: 1000px;
+    h2 {
+      color: $red;
+      font-size: 2.7rem;
+    }
+    .text-days {
+      font-size: 2rem;
+    }
+    .btnPlans {
+      margin-top: 30px;
+      width: 65%;
+      padding: 10px;
+      font-size: 1.3rem;
+      color: $white;
+      background-color: $red;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+    }
+  }
+
+  .right-div {
+    display: inline-block;
+    width: 60%;
+    img {
+      width: 100%;
+    }
   }
 }

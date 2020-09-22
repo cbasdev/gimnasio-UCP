@@ -1,5 +1,11 @@
 import React from 'react'
+import './Login.scss'
 
 export default function Login() {
-  return <div>PAGINA DE LOGIN...</div>
+  return (
+    <div className='screen'>
+      PAGINA DE LOGIN...
+      <div>holi</div>
+    </div>
+  )
 }

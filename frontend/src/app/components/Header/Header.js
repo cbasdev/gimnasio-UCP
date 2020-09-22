@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 import React from 'react'
 import './Header.scss'
 import { BrowserRouter as Router, Link } from 'react-router-dom'
@@ -12,7 +11,7 @@ export default function (props) {
       <nav className='header' style={{ margin: 0 }}>
         <div className='left-links'>
           <Link className='logo' to='/'>
-            <img src={logo} />
+            <img src={logo} alt='Logo' />
           </Link>
         </div>
         <div className='rigth-links'>
