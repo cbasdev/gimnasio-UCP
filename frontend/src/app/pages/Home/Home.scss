@@ -1,0 +1,19 @@
+@import '../../../../public/theme.scss';
+
+.screen {
+  background-image: url('../../../assets/3.jpg');
+  font-weight: 900;
+  background-position: center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+
+  .card {
+    h1 {
+      margin: 0;
+      color: $red;
+      text-align: center;
+      letter-spacing: 3px;
+    }
+    height: 1000px;
+  }
+}
