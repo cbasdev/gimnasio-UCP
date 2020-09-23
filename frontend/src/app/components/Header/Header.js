@@ -5,7 +5,6 @@ import HeaderNavigation from '../../navigations/HeaderNavigation'
 import logo from '../../../assets/logo.png'
 
 export default function (props) {
-  console.log(props)
   return (
     <Router>
       <nav className='header' style={{ margin: 0 }}>
