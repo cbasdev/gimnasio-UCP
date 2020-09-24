@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { FaUser } from 'react-icons/fa'
 import './Login.scss'
 
 export default function Login() {
@@ -14,9 +15,8 @@ export default function Login() {
     <div className='screen' onClick={onSubmit}>
       PAGINA DE LOGIN...
       <div className='card'>
-        <div>Ingresa al portal administrativo :v</div>
+        <FaUser className='iconUser' />
         <form>
-          <div className='title-input'>Email</div>
           <input
             type='text'
             placeholder='Email'
@@ -24,15 +24,15 @@ export default function Login() {
             onChange={handleInputChange}
             name='email'
           />
-          <div className='title-input'>Contraseña</div>
           <input
-            type='text'
+            leftIcon
+            type='password'
             placeholder='Password'
             className='form-control'
             onChange={handleInputChange}
             name='password'
           />
-          <button>Iniciar Sesión</button>
+          <button className='btnLogin'>Iniciar Sesión</button>
         </form>
       </div>
     </div>
