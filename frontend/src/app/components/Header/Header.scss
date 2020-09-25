@@ -1,6 +1,7 @@
 @import '../../../../public/theme.scss';
 
 .header {
+  z-index: 1;
   position: fixed;
   width: 100%;
   display: block;
