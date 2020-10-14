@@ -15,7 +15,7 @@ export default function (props) {
         </div>
         <div className='rigth-links'>
           <Link className='link' to='/plans'>
-            Planes
+            Planesss
           </Link>
           <Link className='link' to='/login'>
             Iniciar Sesión
