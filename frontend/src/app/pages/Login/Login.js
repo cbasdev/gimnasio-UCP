@@ -13,7 +13,7 @@ export default function Login() {
   }
   return (
     <div className='screenLogin'>
-      PAGINA DE LOGIN...
+      PAGINA DE LOGIN...........
       <div className='card'>
         <FaUser className='iconUser' />
         <form>

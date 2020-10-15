@@ -1,5 +1,11 @@
 import React from 'react'
 
 export default function Plans() {
-  return <div>pagina de planes...</div>
+  const number = 30
+  return (
+    <div>
+      <h2>Prueba de planes</h2>
+      <ul>{number}</ul>
+    </div>
+  )
 }
