@@ -15,41 +15,55 @@ create table gym(
   name_gym varchar(45)
 );
 
--- La relacion entre administrador y gimnasio es muchos a muchos, por lo tanto requiere una tabla adicional llamada contrato
-create table contract(
-  id_gym integer,
-  id_admin integer
-);
+-- Creación de la tabla usuario
+create table user_gym(
+  id_user serial primary key,
+  name_user varchar(45),
+  dni varchar(45) UNIQUE,
+  date_in varchar(45),
+  last_date_in varchar(45),
+  acumulated_suscription varchar(45)
+);  
 
--- Relacionamos las llaves foráneas
-alter table contract
-add foreign key (id_gym) references gym(id_gym);
-alter table contract
-add foreign key (id_admin) references admin(id_admin);
-
--- Indicamos que son primarias para evitar repetir
-alter table contract
-add primary key (id_admin, id_gym);
-
--- Ejemplo de insertar datos
-insert into admin (name_admin, email, password) values ('sebastian', 'sebas@gmail.com', '123123');
-insert into admin (name_admin, email, password) values ('david', 'david@gmail.com', '123123');
-insert into admin (name_admin, email, password) values ('juan', 'juan@gmail.com', '123123');
-
-insert into gym (name_gym) values ('bodytec');
-insert into gym (name_gym) values ('gymUCP');
-
-insert into contract values (2, 1);
-insert into contract values (2, 2);
-insert into contract values (2, 3);
-
+-- Creación de la tabla recurso
 create table resource(
   id_resource serial primary key,
-  name_resource varchar(45)
+  name_resource varchar(45),
+  description varchar(135)
 );
 
+-- Relacionando recursos con gimnasio
 alter table resource
-add id_gym integer;
+add id_gym integer not null;
 
 alter table resource
 add foreign key (id_gym) references gym(id_gym);
+
+-- Relacionando Admin con gimnasio
+alter table admin
+add id_gym integer not null;
+
+alter table admin
+add foreign key (id_gym) references gym(id_gym);
+
+-- Relacionando User con Gimnasio
+alter table user_gym
+add id_gym integer not null;
+
+alter table user_gym
+add foreign key (id_gym) references gym(id_gym);
+
+
+-- El proyecto es escalable a mas gimnasios, pero 
+-- Gimnacio UCP tendra el id 1
+insert into gym (name_gym) values ('JOSE SPORT GYM');
+
+
+insert into 
+user_gym (dni, date_in, last_date_in, acumulated_suscription, id_gym, name_user) values ('1093228134', '06/09/2019', '01/01/2020', '12', 1, 'Sebastian Velez Montoya');
+
+insert into
+admin (name_admin, email, password, id_gym) values ('Sebastian Admin', 'sebasttianvelez@gmail.com', '123123', 1);
+
+insert into
+resource (name_resource, description, id_gym) values ('Mancuerna 15kg', 'Algo desgastada, es necesario cambiarla', 1);
