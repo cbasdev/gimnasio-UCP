@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt'
-import { environment } from '../../env/environment'
+const saltround = 1
 
 const encryptPassword = async (password) => {
-  const salt = await bcrypt.genSalt(environment.session.saltRounds)
+  const salt = await bcrypt.genSalt(saltround)
   return bcrypt.hash(password, salt)
 }
 

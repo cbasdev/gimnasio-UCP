@@ -2,7 +2,6 @@ import { Router } from 'express'
 import { pool } from '../database/database'
 import jwt from 'jsonwebtoken'
 import { encryptPassword } from '../utils/authentication'
-import { environment } from '../../env/environment'
 import passport from 'passport'
 
 // Models
