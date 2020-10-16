@@ -5,8 +5,8 @@ create database gimnasioUCP;
 create table admin(
   id_admin serial primary key,
   name_admin varchar(45),
-  email varchar(45),
-  password varchar(45)
+  email varchar(45) UNIQUE,
+  password varchar(65)
 );
 
 -- Creación de la tabla gimnasio
