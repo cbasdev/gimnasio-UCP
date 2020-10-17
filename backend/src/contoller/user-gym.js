@@ -1,15 +1,17 @@
-import pool from '../database/database'
 import moment from 'moment'
+import UserGym from '../database/lib/user-gym'
+
+const userGym = UserGym()
 
 
 async function createUserGym(req,res){
     let date_in = moment().format('YYYY-MM-DD')
-    console.log(date_in)
     let {id_user,name_user,dni,id_gym} = req.body
     try{
-        await pool.query('INSERT INTO user_gym (id_user,name_user,dni,id_gym,date_in) VALUES ($1,$2,$3,$4,$5)',[id_user,name_user,dni,id_gym,date_in])
+        let user = await userGym.createUser(id_user,name_user,dni,id_gym,date_in)
         return res.status(201).send({
-            message : 'Usuario almacenado exitosamente'
+            message : 'Usuario almacenado exitosamente',
+            user
         })
     } catch(err){
         console.debug(err)
@@ -23,10 +25,10 @@ async function createUserGym(req,res){
 
 async function listUsers(req,res){
     try{
-        let query = await pool.query('SELECT * FROM user_gym')
-        let {rows} = query
+
+        let users = await userGym.getUsers()
         return res.status(200).send({
-            users: rows
+            users
         })
     }catch(err){
         return res.status(500).send({
@@ -40,13 +42,14 @@ async function listUsers(req,res){
 async function updateUser(req,res){
     let {id_user,name_user,dni} = req.body
     try{
-        let query =  await pool.query('UPDATE user_gym SET name_user = $1 , dni = $2 WHERE id_user = $3',[name_user,dni,id_user])
-        let {rowCount} = query
-        if(!rowCount) return res.status(404).send({
+
+        let user = await userGym.updateUser(id_user,name_user,dni)
+        if(!user) return res.status(404).send({
             message:'El id del usuario no existe'
         })
         return res.status(200).send({
-            message:'Usuario actualizado de manera correcta'
+            message:'Usuario actualizado de manera correcta',
+            user
         })
 
 
@@ -66,9 +69,8 @@ async function deleteUser(req,res){
         ok:false
     })
     try{
-        let query = await pool.query('DELETE FROM  user_gym WHERE dni = $1',[dni])
-        let {rowCount} = query
-        if(!rowCount) return res.status(404).send({
+        let query = await userGym.deleteUser(dni)
+        if(!query) return res.status(404).send({
             message:"El usuario no existe"
         })
         return res.status(200).send({

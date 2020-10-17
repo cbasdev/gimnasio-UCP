@@ -1,4 +1,5 @@
-import pool from '../database/database'
+import UserGym from '../database/lib/user-gym'
+const userGym = UserGym()
 
 async function userExist(req,res,next){
     let {id_user,name_user,dni,id_gym} = req.body
@@ -7,15 +8,15 @@ async function userExist(req,res,next){
         ok:false
     })
     try{
-        let query = await pool.query('SELECT * FROM user_gym WHERE dni = $1',[dni])
-        let {rows} = query
-        if(rows.length > 0) return res.status(404).send({
+        let user = await userGym.getUserByDni(dni)
+        console.log(user)
+        if (!user) return next()
+        return res.status(404).send({
             message:'El usuario ya existe',
             ok:false
         })
-        next()
     } catch(err){
-        
+        console.log(err)
         return res.status(500).send({
             
             message : 'Error al almacenar el usuario',

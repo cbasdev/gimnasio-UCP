@@ -1,6 +1,9 @@
 
 import { verifyPassword, getToken } from '../utils/authentication'
-import pool from '../database/database'
+import Admin from '../database/lib/admin'
+
+const dbAdmin = Admin()
+
 async function login(req, res) {
     let { email, password } = req.body
     if (!email || !password)
@@ -9,10 +12,9 @@ async function login(req, res) {
             ok: false
         })
     try {
-        let query = await pool.query('SELECT * FROM admin WHERE email = $1', [email])
-        let { rows } = query
-        if (rows.length == 0) return res.status(401).send({ message: 'El usuario no existe' })
-        let admin = rows[0]
+        let query = await dbAdmin.getAdminByEmail(email)
+        if (query.length == 0) return res.status(401).send({ message: 'El usuario no existe' })
+        let admin = query[0]
         let passwordEncrypted = admin.password
         delete admin['password']
         let isCorrectPassword = await verifyPassword(password, passwordEncrypted)

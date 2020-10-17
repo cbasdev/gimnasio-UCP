@@ -13,7 +13,6 @@ const verifyPassword = async (password, passwordEncrypted) => {
 
 const getToken = async (data) => {
   let token = await jwt.sign(data,'privatekey')
-  console.log(token)
   return token
 }
 
