@@ -20,6 +20,7 @@ router.post(
   }
 )
 
+
 // router.post('/register', async (req, res) => {
 //   const { name_admin, email, password } = req.body
 //   const passwordEncrypted = await encryptPassword(password)
