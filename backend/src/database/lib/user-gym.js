@@ -15,8 +15,6 @@ module.exports = function (){
 
     async function getUserByDni(dni){
         const userGym = await pool.query('SELECT * FROM user_gym WHERE dni = $1',[dni])
-        console.log(userGym)
-        console.log(userGym.rows[0])
         return userGym.rows[0]
     }
 
@@ -28,7 +26,6 @@ module.exports = function (){
 
     async function updateUser(id_user,name_user,dni){
         let query =  await pool.query('UPDATE user_gym SET name_user = $1 , dni = $2 WHERE id_user = $3',[name_user,dni,id_user])
-        console.log(query)
         if (!query.rowCount) return null
         return await getUserByDni(dni)
         
