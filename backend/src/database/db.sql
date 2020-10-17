@@ -6,7 +6,7 @@ create table admin(
   id_admin serial primary key,
   name_admin varchar(45),
   email varchar(45) UNIQUE,
-  password varchar(65)
+  password varchar(250)
 );
 
 -- Creación de la tabla gimnasio

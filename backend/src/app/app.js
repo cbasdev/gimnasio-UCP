@@ -1,6 +1,7 @@
 import express from 'express'
 import auth from '../routes/auth'
-import passport from 'passport'
+import adminRouter from '../routes/admin'
+import morgan from 'morgan'
 
 // Inicialización
 const app = express()
@@ -8,10 +9,11 @@ const app = express()
 
 //Para poder leer los archivos en .json
 app.use(express.json())
-
+app.use(express.urlencoded({extended:false}))
+app.use(morgan('dev'))
 //Routes
 require('../auth/auth')
 
 app.use('/api/auth', auth)
-
+app.use('/api/',adminRouter)
 export default app

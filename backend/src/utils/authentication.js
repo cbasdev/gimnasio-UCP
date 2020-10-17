@@ -1,13 +1,20 @@
 import bcrypt from 'bcrypt'
-const saltround = 1
+import jwt from 'jsonwebtoken'
+const saltround = 10
 
 const encryptPassword = async (password) => {
   const salt = await bcrypt.genSalt(saltround)
-  return bcrypt.hash(password, salt)
+  return await bcrypt.hash(password, salt)
 }
 
 const verifyPassword = async (password, passwordEncrypted) => {
   return bcrypt.compareSync(password, passwordEncrypted)
 }
 
-module.exports = { encryptPassword, verifyPassword }
+const getToken = async (data) => {
+  let token = await jwt.sign(data,'privatekey')
+  console.log(token)
+  return token
+}
+
+module.exports = { encryptPassword, verifyPassword , getToken}
