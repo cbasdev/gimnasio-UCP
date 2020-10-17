@@ -14,7 +14,6 @@ async function createUserGym(req,res){
             user
         })
     } catch(err){
-        console.debug(err)
         return res.status(500).send({
             message : 'Error al almacenar el usuario'
         })
@@ -55,7 +54,7 @@ async function updateUser(req,res){
 
     }catch(err){
         return res.status(500).send({
-            message: 'error al actualizar el usuario',
+            message: 'Error al actualizar el usuario',
             ok:false
         })
     }
@@ -70,7 +69,7 @@ async function deleteUser(req,res){
     })
     try{
         let query = await userGym.deleteUser(dni)
-        if(!query) return res.status(404).send({
+        if(!query) return res.status(400).send({
             message:"El usuario no existe"
         })
         return res.status(200).send({

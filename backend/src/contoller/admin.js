@@ -9,16 +9,13 @@ async function createAdmin(req,res){
         let password_encrypted = await encryptPassword(password)
         let newAdmin = await admin.createAdmin(id_admin,name_admin,email,password_encrypted,id_gym)
         let token = await getToken(newAdmin)
-        console.log(token);
         return res.status(201).send({
             newAdmin,token
         })
 
     }catch(err){
-        console.log(err);
         return res.status(500).send({
-            err,
-            error : 'Problemas al crear el admin',
+            message : 'Problemas al crear el administrador',
             ok: false
         })
     }

@@ -5,7 +5,7 @@ async function adminExist (req,res,next){
     let {id_admin,name_admin,email,password,id_gym} = req.body
     if (!id_admin || !name_admin || !email || !password || !id_gym)
         return res.status(400).send({
-            message : 'faltan argumentos',
+            message : 'Faltan argumentos',
             ok: false
         })
     try{
@@ -21,7 +21,7 @@ async function adminExist (req,res,next){
 
     }catch(err){
     return res.status(500).send({
-        message : 'error al crear usuarios'
+        message : 'Error al crear usuarios'
     })
     }
 

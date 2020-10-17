@@ -30,7 +30,7 @@ async function listResources(req,res){
 
     }catch(err){
         return res.status(500).send({
-            message:'Error al listar recursos',
+            message:'Error al listar los recursos',
             ok:false
         })
     }
