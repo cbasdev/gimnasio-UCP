@@ -4,7 +4,8 @@
   "description": "Backend de la aplicacion: Gestion administrativa del gimnasio de la UCP",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js --ext js --exec babel-node"
+    "start": "nodemon src/index.js --ext js --exec babel-node",
+    "dev":"NODE_ENV=dev nodemon src/index.js --ext js --exec babel-node"
   },
   "author": "",
   "license": "ISC",
