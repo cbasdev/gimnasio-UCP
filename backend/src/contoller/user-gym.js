@@ -84,10 +84,31 @@ async function deleteUser(req,res){
 
 }
 
+async function getUser(req,res){
+    
+    let {dni} = req.params
+
+    try{
+        let user = await userGym.getUserByDni(dni)
+        if(!user) user = {}
+        return res.status(200).send({
+            user : user
+        
+        })
+    }catch(err){
+        return res.status(500).send({
+            message : 'Error al listar usuario',
+            ok:false
+        })
+    }
+
+}
+
 
 module.exports = {
     createUserGym,
     listUsers,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUser
 }
