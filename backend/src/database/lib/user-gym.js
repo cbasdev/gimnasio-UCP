@@ -2,9 +2,9 @@ import pool from '../database'
 
 module.exports = function (){
 
-    async function createUser(id_user,name_user,dni,id_gym,date_in){
+    async function createUser(name_user,dni,id_gym,date_in){
 
-        await pool.query('INSERT INTO user_gym (id_user,name_user,dni,id_gym,date_in) VALUES ($1,$2,$3,$4,$5)',[id_user,name_user,dni,id_gym,date_in])
+        await pool.query('INSERT INTO user_gym (name_user,dni,id_gym,date_in) VALUES ($1,$2,$3,$4)',[name_user,dni,id_gym,date_in])
         return await getUserByDni(dni)
         }
 
@@ -24,8 +24,8 @@ module.exports = function (){
         return query.rowCount ? true : false
     }
 
-    async function updateUser(id_user,name_user,dni){
-        let query =  await pool.query('UPDATE user_gym SET name_user = $1 , dni = $2 WHERE id_user = $3',[name_user,dni,id_user])
+    async function updateUser(name_user,dni){
+        let query =  await pool.query('UPDATE user_gym SET name_user = $1 , dni = $2 WHERE dni = $3',[name_user,dni,dni])
         if (!query.rowCount) return null
         return await getUserByDni(dni)
         

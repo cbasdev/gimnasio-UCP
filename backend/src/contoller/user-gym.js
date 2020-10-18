@@ -39,10 +39,10 @@ async function listUsers(req,res){
 
 
 async function updateUser(req,res){
-    let {id_user,name_user,dni} = req.body
+    let {name_user,dni} = req.body
     try{
 
-        let user = await userGym.updateUser(id_user,name_user,dni)
+        let user = await userGym.updateUser(name_user,dni)
         if(!user) return res.status(404).send({
             message:'El id del usuario no existe'
         })
@@ -104,11 +104,22 @@ async function getUser(req,res){
 
 }
 
+async function payMonth(req,res){
+    let {pay_months} = req.body
+    let {dni} = req.params
+    return res.status(200).send({
+        message : 'Working in pay',
+        pay_months,
+        dni
+    })
+}
+
 
 module.exports = {
     createUserGym,
     listUsers,
     updateUser,
     deleteUser,
-    getUser
+    getUser,
+    payMonth
 }
