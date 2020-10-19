@@ -15,10 +15,10 @@ let config = {
         database: process.env.DB_NAME
     },
     dev :{
-        user: process.env.DB_USER || '',
-        host: process.env.DB_HOST || '',
-        password: process.env.DB_PASS || '',
-        database: process.env.DB_NAME || ''
+        user: process.env.DB_USER || 'eddylson',
+        host: process.env.DB_HOST || 'localhost',
+        password: process.env.DB_PASS || 'cc1087557200',
+        database: process.env.DB_NAME || 'gym'
     },
 
 }

@@ -8,5 +8,5 @@ router.get('/users',listUsers)
 router.put('/user',updateUser)
 router.delete('/user',deleteUser)
 router.get('/user/:dni',getUser)
-router.post('/pay/monyhs/:dni',payMonth)
+router.post('/pay/months/:dni',payMonth)
 export default router

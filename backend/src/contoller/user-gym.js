@@ -6,14 +6,15 @@ const userGym = UserGym()
 
 async function createUserGym(req,res){
     let date_in = moment().format('YYYY-MM-DD')
-    let {id_user,name_user,dni,id_gym} = req.body
+    let {name_user,dni,id_gym} = req.body
     try{
-        let user = await userGym.createUser(id_user,name_user,dni,id_gym,date_in)
+        let user = await userGym.createUser(name_user,dni,id_gym,date_in)
         return res.status(201).send({
             message : 'Usuario almacenado exitosamente',
             user
         })
     } catch(err){
+        console.log(err)
         return res.status(500).send({
             message : 'Error al almacenar el usuario'
         })
@@ -39,10 +40,11 @@ async function listUsers(req,res){
 
 
 async function updateUser(req,res){
-    let {name_user,dni} = req.body
+    let {name_user,dni,new_dni} = req.body
+    if(!new_dni) new_dni = dni
     try{
 
-        let user = await userGym.updateUser(name_user,dni)
+        let user = await userGym.updateUser(name_user,dni,new_dni)
         if(!user) return res.status(404).send({
             message:'El id del usuario no existe'
         })
@@ -104,16 +106,49 @@ async function getUser(req,res){
 
 }
 
-async function payMonth(req,res){
-    let {pay_months} = req.body
-    let {dni} = req.params
-    return res.status(200).send({
-        message : 'Working in pay',
-        pay_months,
-        dni
-    })
+
+function verifyMonths(last_date_in,months){
+    console.log(last_date_in)
+    let date_now = moment()
+    let date = moment(last_date_in)
+    let date_add = date.add(months,'M')
+    return date_now.isBetween(date,date_add)
+    
 }
 
+async function payMonth(req,res){
+    let {pay_months} = req.body
+
+    let date_now = moment().format('YYYY-MM-DD')
+    let {dni} = req.params
+    let user = await userGym.getUserByDni(dni)
+    if (!user) return res.status(404).send({
+        message:"El usuario no existe",
+        ok:false
+    })
+    let {last_date_in,acumulated_suscription} = user
+    
+    if (!last_date_in) {
+        last_date_in = date_now
+        acumulated_suscription = '0'
+    }
+    acumulated_suscription = Number(acumulated_suscription)
+    if (verifyMonths(last_date_in, acumulated_suscription)){
+        acumulated_suscription = pay_months
+    }
+    else {
+        acumulated_suscription += pay_months
+        last_date_in = date_now
+    }
+    let userUpdated = await userGym.updateLastDateInAndAcumulatedSuscription(dni,last_date_in,acumulated_suscription)
+    return res.status(200).send({
+        message : 'Working in pay',
+        user: userUpdated
+})
+
+ 
+
+}
 
 module.exports = {
     createUserGym,

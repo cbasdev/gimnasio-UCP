@@ -24,20 +24,24 @@ module.exports = function (){
         return query.rowCount ? true : false
     }
 
-    async function updateUser(name_user,dni){
-        let query =  await pool.query('UPDATE user_gym SET name_user = $1 , dni = $2 WHERE dni = $3',[name_user,dni,dni])
+    async function updateUser(name_user,dni,new_dni){
+        let query =  await pool.query('UPDATE user_gym SET name_user = $1 , dni = $2 WHERE dni = $3',[name_user,new_dni,dni])
         if (!query.rowCount) return null
+        return await getUserByDni(new_dni)
+     }
+
+     async function updateLastDateInAndAcumulatedSuscription(dni,last_date_in,acumulated_suscription){
+
+        await pool.query('UPDATE user_gym SET last_date_in = $1 , acumulated_suscription = $2 WHERE dni = $3',[last_date_in,acumulated_suscription,dni])
         return await getUserByDni(dni)
-        
+     }
 
-
-
-    }
     return {
         createUser,
         getUsers,
         deleteUser,
         updateUser,
-        getUserByDni
+        getUserByDni,
+        updateLastDateInAndAcumulatedSuscription
     }
 }
