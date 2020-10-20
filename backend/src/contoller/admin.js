@@ -4,10 +4,10 @@ const admin  = Admin()
 
 
 async function createAdmin(req,res){
-    let {id_admin,name_admin,email,password,id_gym} = req.body
+    let {name_admin,email,password,id_gym} = req.body
     try{
         let password_encrypted = await encryptPassword(password)
-        let newAdmin = await admin.createAdmin(id_admin,name_admin,email,password_encrypted,id_gym)
+        let newAdmin = await admin.createAdmin(name_admin,email,password_encrypted,id_gym)
         let token = await getToken(newAdmin)
         return res.status(201).send({
             newAdmin,token
