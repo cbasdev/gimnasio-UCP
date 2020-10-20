@@ -14,7 +14,7 @@ async function adminExist (req,res,next){
 
         if(query.length > 0)
             return res.status(400).send({
-                message: 'El usuario ya se encuentra registrado',
+                message: 'El administrador ya se encuentra registrado',
                 ok: false
             })
         next()
