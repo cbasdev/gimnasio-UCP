@@ -2,7 +2,7 @@ import Admin from '../database/lib/admin'
 const admin = Admin()
 
 async function adminExist (req,res,next){
-    let {name_admin,email,password,id_gym} = req.body
+    let {id_admin,name_admin,email,password,id_gym} = req.body
     if (!id_admin ||!name_admin || !email || !password || !id_gym)
         return res.status(400).send({
             message : 'Faltan argumentos',
