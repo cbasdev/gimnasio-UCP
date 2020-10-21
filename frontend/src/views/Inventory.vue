@@ -14,7 +14,9 @@
         </button>
       </div>
       <div class="col-md-8 bg-danger">
-        <div v-if="selectPanel == 'ListInventory'"><ListInventory /></div>
+        <div v-if="selectPanel == 'ListInventory'">
+          <ListInventory :listInv="inventory" />
+        </div>
         <div v-if="selectPanel == 'SearchResource'"><SearchResource /></div>
         <div v-if="selectPanel == 'RegisterResource'"><RegisterResource /></div>
       </div>
@@ -26,7 +28,8 @@
 import ListInventory from '../components/ListInventory'
 import SearchResource from '../components/SearchResource'
 import RegisterResource from '../components/RegisterResource'
-
+import { mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Inventory',
   components: {
@@ -38,6 +41,15 @@ export default {
     return {
       selectPanel: 'ListInventory',
     }
+  },
+  mounted() {
+    this.GET_INVENTORY()
+  },
+  methods: {
+    ...mapActions(['GET_INVENTORY']),
+  },
+  computed: {
+    ...mapGetters(['inventory']),
   },
 }
 </script>

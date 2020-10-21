@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div id="nav" v-if="!tokenAuth">
       <div class="logo">
         logo
       </div>
@@ -10,11 +10,32 @@
         <router-link to="/register">Registro</router-link>
       </div>
     </div>
+    <div id="nav" v-if="tokenAuth">
+      <div class="logo">
+        logo
+      </div>
+      <div class="end">
+        <router-link to="/users">Administrar Usuarios</router-link> |
+        <router-link to="/inventory">Administrar Inventario</router-link> |
+        <router-link to="/logout">Cerrar Sesion</router-link>
+      </div>
+    </div>
     <router-view />
+    <vue-snotify></vue-snotify>
   </div>
 </template>
 
+<script>
+import { mapGetters } from 'vuex'
+export default {
+  computed: {
+    ...mapGetters(['tokenAuth']),
+  },
+}
+</script>
+
 <style lang="scss">
+@import '~vue-snotify/styles/material';
 @import './assets/theme.scss';
 
 #app {

@@ -12,6 +12,11 @@
 <script>
 export default {
   name: 'RegisterUser',
+  data() {
+    return {
+      dniSearch: '',
+    }
+  },
 }
 </script>
 

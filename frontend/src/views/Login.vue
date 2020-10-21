@@ -2,8 +2,12 @@
   <div class="container-form">
     <form>
       <h2>JOSÉ SPORT GYM</h2>
-      <input v-model="email" type="email" placeholder="Correo Electrónico" />
-      <input v-model="password" type="password" placeholder="Contraseña" />
+      <input
+        v-model="form.email"
+        type="email"
+        placeholder="Correo Electrónico"
+      />
+      <input v-model="form.password" type="password" placeholder="Contraseña" />
 
       <button @click="Login" class="btn">Iniciar Sesion</button>
     </form>
@@ -12,22 +16,26 @@
 
 <script>
 import { mapActions } from 'vuex'
+
+import router from '../router/index'
 export default {
   name: 'Login',
   data() {
     return {
-      email: '',
-      password: '',
+      form: {},
     }
   },
+
   methods: {
-    ...mapActions(['LOGIN_USER']),
-    Login: function() {
-      const dataSend = {
-        email: this.email,
-        password: this.password,
-      }
-      this.LOGIN_USER(dataSend)
+    ...mapActions(['LOGIN']),
+    Login() {
+      this.LOGIN(this.form)
+        .then((response) => {
+          this.$router.replace({ name: 'Inventory' })
+        })
+        .catch((error) => {
+          this.$snotify.error('Email o contraseña incorrectos')
+        })
     },
   },
 }

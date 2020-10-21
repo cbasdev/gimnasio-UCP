@@ -29,6 +29,11 @@ const routes = [
     name: 'Inventory',
     component: () => import('../views/Inventory.vue'),
   },
+  {
+    path: '/logout',
+    name: 'Logout',
+    component: () => import('../views/Logout.vue'),
+  },
 ]
 
 const router = new VueRouter({

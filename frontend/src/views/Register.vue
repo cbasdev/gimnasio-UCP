@@ -2,31 +2,48 @@
   <div class="container-form">
     <form>
       <h2>JOSÉ SPORT GYM</h2>
-      <input v-model="name" type="text" placeholder="Nombre" />
-      <input v-model="email" type="email" placeholder="Correo Electrónico" />
-      <input v-model="password" type="password" placeholder="Contraseña" />
+      <input v-model="form.name_admin" type="text" placeholder="Nombre" />
+      <input
+        v-model="form.email"
+        type="email"
+        placeholder="Correo Electrónico"
+      />
+      <input v-model="form.password" type="password" placeholder="Contraseña" />
       <input
         v-model="repeatPass"
         type="password"
         placeholder="Repetir Contraseña"
       />
       <input v-model="code" type="password" placeholder="Código Interno" />
-      <button class="btn">Registrarse</button>
+      <button class="btn" @click="Register">Registrarse</button>
     </form>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'Register',
   data() {
     return {
-      name: '',
-      email: '',
-      password: '',
+      form: {},
       repeatPass: '',
       code: '',
     }
+  },
+  methods: {
+    ...mapActions(['REGISTER']),
+    Register() {
+      this.form.id_gym = 1
+      this.REGISTER(this.form)
+        .then((response) => {
+          this.$snotify.success('Usuario registrado satisfactoriamente')
+          this.$router.replace({ name: 'Inventory' })
+        })
+        .catch((error) => {
+          this.$snotify.error('Usuario ya existente')
+        })
+    },
   },
 }
 </script>

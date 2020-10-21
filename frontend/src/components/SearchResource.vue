@@ -9,6 +9,11 @@
 <script>
 export default {
   name: 'SearchResource',
+  data() {
+    return {
+      dniSearch: '',
+    }
+  },
 }
 </script>
 
