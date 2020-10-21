@@ -1,7 +1,11 @@
 import { Pool } from 'pg'
 
-import { environment } from '../../env/environment'
+import  environment  from '../env/environment'
 
-const $db = environment.db
 
-export const pool = new Pool($db)
+const $db = environment
+//singleton
+let pool = null
+if(!pool) pool = new Pool($db)
+
+module.exports = pool
