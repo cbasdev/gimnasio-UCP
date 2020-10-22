@@ -2,7 +2,7 @@
   <div class="container-user">
     <h1>Panel de administración de usuarios</h1>
     <div class="row">
-      <div class="col-md-4 bg-dark">
+      <div class="col-md-4 mt-5">
         <button class="btn btn-light" @click="selectPanel = 'ListUsers'">
           Listar Usuarios
         </button>
@@ -16,8 +16,10 @@
           Registrar Usuario
         </button>
       </div>
-      <div class="col-md-8 bg-danger">
-        <div v-if="selectPanel == 'ListUsers'"><ListUsers /></div>
+      <div class="col-md-8">
+        <div v-if="selectPanel == 'ListUsers'">
+          <ListUsers v-if="loading" :listInv="users" />
+        </div>
         <div v-if="selectPanel == 'SearchUser'"><SearchUser /></div>
         <div v-if="selectPanel == 'RenewUser'"><RenewUser /></div>
         <div v-if="selectPanel == 'RegisterUser'"><RegisterUser /></div>
@@ -31,7 +33,8 @@ import SearchUser from '../components/SearchUser'
 import RenewUser from '../components/RenewUser'
 import RegisterUser from '../components/RegisterUser'
 import ListUsers from '../components/ListUsers'
-
+import { mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Users',
   components: {
@@ -42,8 +45,17 @@ export default {
   },
   data() {
     return {
-      selectPanel: 'SearchUser',
+      selectPanel: 'ListUsers',
     }
+  },
+  mounted() {
+    this.GET_USERS()
+  },
+  methods: {
+    ...mapActions(['GET_USERS']),
+  },
+  computed: {
+    ...mapGetters(['users', 'loading']),
   },
 }
 </script>
@@ -62,6 +74,7 @@ export default {
     margin: 0;
     padding: 50px 10% 0px 10%;
   }
+
   button {
     display: block;
     margin-left: auto;
