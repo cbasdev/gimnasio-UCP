@@ -1,7 +1,7 @@
 <template>
   <div class="container-form">
     <form>
-      <h2>JOSÉ SPORT GYM</h2>
+      <h1>JOSÉ SPORT GYM</h1>
       <input v-model="form.name_admin" type="text" placeholder="Nombre" />
       <input
         v-model="form.email"
@@ -15,7 +15,7 @@
         placeholder="Repetir Contraseña"
       />
       <input v-model="code" type="password" placeholder="Código Interno" />
-      <button class="btn" @click="Register">Registrarse</button>
+      <button class="btn btn-standar" @click="Register">Registrarse</button>
     </form>
   </div>
 </template>
@@ -61,7 +61,7 @@ export default {
   padding-top: 150px;
 }
 form {
-  h2 {
+  h1 {
     color: white;
     font-size: 2.5rem;
     letter-spacing: 5px;
@@ -86,6 +86,7 @@ form {
     margin-right: auto;
     margin-left: auto;
     border: none;
+    font-size: 1.2rem;
   }
   input::placeholder {
     font-size: 1.2rem;
@@ -94,17 +95,7 @@ form {
     color: rgb(255, 255, 255);
   }
   button {
-    text-transform: uppercase;
-    color: $dark-color;
-    letter-spacing: 5px;
-    font-family: 'Muli', sans-serif;
-    border-radius: 10px;
-    font-size: 1.5rem;
-    font-weight: 1000;
-    width: 80%;
     margin-top: 30px;
-    padding: 10px;
-    background-color: $principal-color;
   }
 }
 </style>

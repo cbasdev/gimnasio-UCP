@@ -2,23 +2,20 @@
   <div class="container-user">
     <h1>Panel de administración de Inventario</h1>
     <div class="row">
-      <div class="col-md-4 bg-dark">
+      <div class="col-md-4 mt-5">
         <button class="btn btn-light" @click="selectPanel = 'ListInventory'">
           Ver Inventario
         </button>
-        <button class="btn btn-light" @click="selectPanel = 'SearchResource'">
-          Buscar en Inventario
-        </button>
-        <button class="btn btn-light" @click="selectPanel = 'RegisterResource'">
-          Registrar en Inventario
+
+        <button class="btn btn-light" @click="selectPanel = 'AgregarResource'">
+          Agregar Recurso
         </button>
       </div>
-      <div class="col-md-8 bg-danger">
+      <div class="col-md-8 ">
         <div v-if="selectPanel == 'ListInventory'">
-          <ListInventory :listInv="inventory" />
+          <ListInventory v-if="loading" :listInv="inventory" />
         </div>
-        <div v-if="selectPanel == 'SearchResource'"><SearchResource /></div>
-        <div v-if="selectPanel == 'RegisterResource'"><RegisterResource /></div>
+        <div v-if="selectPanel == 'AgregarResource'"><AddResource /></div>
       </div>
     </div>
   </div>
@@ -26,16 +23,14 @@
 
 <script>
 import ListInventory from '../components/ListInventory'
-import SearchResource from '../components/SearchResource'
-import RegisterResource from '../components/RegisterResource'
+import AddResource from '../components/AddResource'
 import { mapActions } from 'vuex'
 import { mapGetters } from 'vuex'
 export default {
   name: 'Inventory',
   components: {
     ListInventory,
-    SearchResource,
-    RegisterResource,
+    AddResource,
   },
   data() {
     return {
@@ -49,7 +44,7 @@ export default {
     ...mapActions(['GET_INVENTORY']),
   },
   computed: {
-    ...mapGetters(['inventory']),
+    ...mapGetters(['inventory', 'loading']),
   },
 }
 </script>
@@ -68,6 +63,7 @@ export default {
     margin: 0;
     padding: 50px 10% 0px 10%;
   }
+
   button {
     display: block;
     margin-left: auto;

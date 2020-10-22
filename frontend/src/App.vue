@@ -2,7 +2,13 @@
   <div id="app">
     <div id="nav" v-if="!tokenAuth">
       <div class="logo">
-        logo
+        <router-link to="/">
+          <img
+            @click="this.$router.replace({ name: 'Home' })"
+            src="./assets/logo.png"
+            alt="logo"
+          />
+        </router-link>
       </div>
       <div class="end">
         <router-link to="/">Home</router-link> |
@@ -12,7 +18,13 @@
     </div>
     <div id="nav" v-if="tokenAuth">
       <div class="logo">
-        logo
+        <router-link to="/users">
+          <img
+            @click="this.$router.replace({ name: 'Home' })"
+            src="./assets/logo.png"
+            alt="logo"
+          />
+        </router-link>
       </div>
       <div class="end">
         <router-link to="/users">Administrar Usuarios</router-link> |
@@ -21,6 +33,9 @@
       </div>
     </div>
     <router-view />
+    <div v-if="!loading" class="text-center">
+      <b-spinner variant="warning" label="Spinning"></b-spinner>
+    </div>
     <vue-snotify></vue-snotify>
   </div>
 </template>
@@ -29,7 +44,7 @@
 import { mapGetters } from 'vuex'
 export default {
   computed: {
-    ...mapGetters(['tokenAuth']),
+    ...mapGetters(['tokenAuth', 'loading']),
   },
 }
 </script>
@@ -42,9 +57,19 @@ export default {
   font-family: 'Oswald', sans-serif;
   text-transform: uppercase;
   background-color: #000;
+  h2 {
+    color: $principal-color;
+  }
+  .btn-standar {
+    background: $principal-color;
+    color: $dark-color;
+    padding: 10px 20px 10px 20px;
+    font-size: 1.2rem;
+  }
 }
 
 #nav {
+  z-index: 1;
   position: fixed;
   width: 100%;
   align-items: center;
@@ -53,6 +78,9 @@ export default {
     width: 40%;
     display: inline-block;
     color: white;
+    img {
+      width: 80px;
+    }
   }
   .end {
     width: 60%;
@@ -65,7 +93,7 @@ export default {
     color: #ffffff;
 
     &.router-link-exact-active {
-      color: #ffd500;
+      color: $principal-color;
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
-  <div class="container-form">
-    <h2>Ha cerrado sesion satisfactoriamente</h2>
+  <div class="container-form text-center">
+    <h1>Ha cerrado sesion satisfactoriamente</h1>
   </div>
 </template>
 
@@ -19,6 +19,14 @@ export default {
 
 <style lang="scss" scoped>
 .container-form {
+  h1 {
+    padding: 100px 300px 100px 300px;
+    color: white;
+    font-size: 5rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+  }
   display: block;
   width: 100%;
   background-image: url('../assets/img/1.jpg');
