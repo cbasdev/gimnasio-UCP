@@ -33,6 +33,13 @@ export default {
       this.form.last_date_in = moment().format('DD/MM/YYYY')
       this.form.id_gym = 1
       this.ADD_USER(this.form)
+        .then(() => {
+          this.$snotify.success('Usuario registrado satisfactoriamente')
+          this.$emit('reload')
+        })
+        .catch((error) => {
+          this.$snotify.error('Error al registrar usuario', error)
+        })
     },
   },
 }

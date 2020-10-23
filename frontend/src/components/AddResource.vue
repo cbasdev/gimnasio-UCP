@@ -4,18 +4,22 @@
     <form>
       <input v-model="form.name_resource" placeholder="Nombre del Recurso" />
       <input v-model="form.description" placeholder="Descripción" />
-      <button class="btn btn-standar mt-4">AGREGAR</button>
+      <button @click="addResource" class="btn btn-standar mt-4">AGREGAR</button>
     </form>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'AddResource',
   data() {
     return {
       form: {},
     }
+  },
+  methods: {
+    addResource() {},
   },
 }
 </script>

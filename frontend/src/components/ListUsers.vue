@@ -11,11 +11,22 @@
         :current-page="currentPage"
         small
       >
-        <template #cell(Editar)="data">
+        <template #cell(Estado)="data">
           <!-- `data.value` is the value after formatted by the Formatter -->
-          <button class="btn btn-warning" @click="openModalEdit(data)">
+          <p
+            v-if="isActive(data)"
+            style="color:red"
+            @click="openModalEdit(data)"
+          >
             {{ data.value }}
-          </button>
+          </p>
+          <p
+            v-if="!isActive(data)"
+            style="color:green"
+            @click="openModalEdit(data)"
+          >
+            {{ data.value }}
+          </p>
         </template>
       </b-table>
       <b-pagination
@@ -35,7 +46,7 @@ export default {
   props: ['listInv'],
   data() {
     return {
-      perPage: 10,
+      perPage: 7,
       currentPage: 1,
       items: [],
       rows: this.listInv.length,
@@ -59,13 +70,16 @@ export default {
           Fecha_de_Ingreso: index.date_in,
           Ultima_Fecha_de_Suscripción: index.last_date_in,
           Meses_pagados: index.acumulated_suscription,
-          Editar: 'Editar',
+          Estado: 'Activo',
         }
       })
       return newList
     },
     openModalEdit(resource) {
       console.log('item a editar resource', resource)
+    },
+    isActive(data) {
+      return data === 'Activo'
     },
   },
 }

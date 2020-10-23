@@ -30,18 +30,28 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  props: ['listInv'],
   data() {
     return {
+      loading: true,
       perPage: 10,
       currentPage: 1,
       items: [],
-      rows: this.listInv.length,
+      rows: 0,
     }
   },
   mounted() {
-    this.items = this.listInventory(this.listInv)
+    this.loading = false
+    axios
+      .get('http://localhost:3000/api/resources')
+      .then((response) => {
+        this.items = this.listInventory(response.data.resources)
+        this.rows = this.items.length
+      })
+      .catch((error) => {
+        this.loading = true
+      })
   },
   methods: {
     listInventory(listData) {

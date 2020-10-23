@@ -13,7 +13,7 @@
       </div>
       <div class="col-md-8 ">
         <div v-if="selectPanel == 'ListInventory'">
-          <ListInventory v-if="loading" :listInv="inventory" />
+          <ListInventory />
         </div>
         <div v-if="selectPanel == 'AgregarResource'"><AddResource /></div>
       </div>
@@ -36,15 +36,6 @@ export default {
     return {
       selectPanel: 'ListInventory',
     }
-  },
-  mounted() {
-    this.GET_INVENTORY()
-  },
-  methods: {
-    ...mapActions(['GET_INVENTORY']),
-  },
-  computed: {
-    ...mapGetters(['inventory', 'loading']),
   },
 }
 </script>
