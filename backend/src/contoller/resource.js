@@ -4,9 +4,13 @@ const resource = Resource()
 
 
 async function createResource(req,res){
-    let {id_resource,name_resorce,description,id_gym} = req.body
+    let {reference,name_resource,description,id_gym} = req.body
+		if (!reference || !name_resource || !description || !id_gym) return res.status(404).send({
+		message : 'Faltan argumentos',
+		ok:false
+	})
     try{
-        let new_resource  = await resource.createResource(id_resource,name_resorce,description,id_gym)
+        let new_resource  = await resource.createResource(reference,name_resource,description,id_gym)
         return res.status(201).send({
             message: 'Recurso almacenado correctamente',
             resource: new_resource

@@ -134,10 +134,10 @@ async function payMonth(req,res){
     }
     acumulated_suscription = Number(acumulated_suscription)
     if (verifyMonths(last_date_in, acumulated_suscription)){
-        acumulated_suscription = pay_months
+        acumulated_suscription += pay_months
     }
     else {
-        acumulated_suscription += pay_months
+        acumulated_suscription = pay_months
         last_date_in = date_now
     }
     let userUpdated = await userGym.updateLastDateInAndAcumulatedSuscription(dni,last_date_in,acumulated_suscription)
