@@ -5,10 +5,10 @@ const userGym = UserGym()
 
 
 async function createUserGym(req,res){
-    let date_in = moment().format('YYYY-MM-DD')
-    let {name_user,dni,id_gym} = req.body
+
+	let {name_user,dni,id_gym,date_in, acumulated_suscription,last_date_in } = req.body
     try{
-        let user = await userGym.createUser(name_user,dni,id_gym,date_in)
+        let user = await userGym.createUser(name_user,dni,id_gym,date_in,acumulated_suscription,last_date_in)
         return res.status(201).send({
             message : 'Usuario almacenado exitosamente',
             user
