@@ -2,8 +2,8 @@ import UserGym from '../database/lib/user-gym'
 const userGym = UserGym()
 
 async function userExist(req,res,next){
-    let {name_user,dni,id_gym} = req.body
-    if ( !name_user || !dni || !id_gym) return res.status(400).send({
+	let {name_user,dni,id_gym,date_in,last_date_in,acumulated_suscription} = req.body
+    if ( !name_user || !dni || !id_gym || !last_date_in || !date_in || !acumulated_suscription) return res.status(400).send({
         message: 'Faltan argumentos',
         ok:false
     })
@@ -15,7 +15,6 @@ async function userExist(req,res,next){
             ok:false
         })
     } catch(err){
-        console.log(err)
         return res.status(500).send({
             
             message : 'Error al almacenar el usuario',

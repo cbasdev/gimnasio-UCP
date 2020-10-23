@@ -2,9 +2,9 @@ import pool from '../database'
 
 module.exports = function (){
 
-    async function createUser(name_user,dni,id_gym,date_in){
+    async function createUser(name_user,dni,id_gym,date_in,acumulated_suscription,last_date_in){
 
-        await pool.query('INSERT INTO user_gym (name_user,dni,id_gym,date_in) VALUES ($1,$2,$3,$4)',[name_user,dni,id_gym,date_in])
+        await pool.query('INSERT INTO user_gym (name_user,dni,id_gym,date_in,acumulated_suscription,last_date_in) VALUES ($1,$2,$3,$4,$5,$6)',[name_user,dni,id_gym,date_in,acumulated_suscription,last_date_in])
         return await getUserByDni(dni)
         }
 
