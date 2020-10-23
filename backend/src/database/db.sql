@@ -28,6 +28,7 @@ create table user_gym(
 -- Creación de la tabla recurso
 create table resource(
   id_resource serial primary key,
+	reference varchar(45),
   name_resource varchar(45),
   description varchar(135)
 );
