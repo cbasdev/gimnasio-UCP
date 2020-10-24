@@ -42,9 +42,13 @@ async function listResources(req,res){
 }
 
 async function updateResource(req,res){
-    let {id_resource,name_resorce,description,id_gym} = req.body
+    let {id_resource,name_resource,description,id_gym,reference} = req.body
+		if (!id_resource || ! name_resource || ! description || !id_gym || !reference) return res.status(404).send({
+		message: 'Falta argumentos',
+		ok:false
+	})
     try{
-        let resourceUpdated = await resource.updateResource(id_resource,name_resorce,description,id_gym)
+        let resourceUpdated = await resource.updateResource(id_resource,name_resource,description,id_gym,reference)
         if(!resourceUpdated) return res.status(400).send({
             message:'El id del recurso no se encuentra',
             ok:false
