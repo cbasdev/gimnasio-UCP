@@ -10,32 +10,45 @@
       <input v-model="form.password" type="password" placeholder="Contraseña" />
 
       <button @click="Login" class="btn btn-standar">INICIAR SESIÓN</button>
+      <div v-if="!loading" class="text-center mt-5">
+        <b-spinner variant="warning" label="Spinning"></b-spinner>
+      </div>
     </form>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
-
+import { validateEmail } from '../utils/validations'
 import router from '../router/index'
+
 export default {
   name: 'Login',
   data() {
     return {
       form: {},
+      loading: true,
     }
   },
 
   methods: {
     ...mapActions(['LOGIN']),
     Login() {
-      this.LOGIN(this.form)
-        .then((response) => {
-          this.$router.replace({ name: 'Inventory' })
-        })
-        .catch((error) => {
-          this.$snotify.error('Email o contraseña incorrectos')
-        })
+      this.loading = false
+      if (validateEmail(this.form.email)) {
+        this.LOGIN(this.form)
+          .then((response) => {
+            this.$router.replace({ name: 'Inventory' })
+            this.loading = true
+          })
+          .catch((error) => {
+            this.$snotify.error('Email o contraseña incorrectos')
+            this.loading = true
+          })
+      } else {
+        this.$snotify.error('Email no valido')
+        this.loading = true
+      }
     },
   },
 }

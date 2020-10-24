@@ -2,6 +2,7 @@
   <div>
     <h2>Agregar Nuevo Recurso</h2>
     <form>
+      <input v-model="form.reference" placeholder="Identificador" />
       <input v-model="form.name_resource" placeholder="Nombre del Recurso" />
       <input v-model="form.description" placeholder="Descripción" />
       <button @click="addResource" class="btn btn-standar mt-4">AGREGAR</button>
@@ -19,7 +20,18 @@ export default {
     }
   },
   methods: {
-    addResource() {},
+    addResource() {
+      this.form.id_gym = 1
+      axios
+        .post('http://localhost:3000/api/resource', this.form)
+        .then((response) => {
+          this.$snotify.success('Inventario registrado satisfactoriamente')
+          location.reload()
+        })
+        .catch((error) => {
+          this.$snotify.error('Error al agregar inventario: ', error)
+        })
+    },
   },
 }
 </script>

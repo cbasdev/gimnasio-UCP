@@ -16,12 +16,16 @@
       />
       <input v-model="code" type="password" placeholder="Código Interno" />
       <button class="btn btn-standar" @click="Register">Registrarse</button>
+      <div v-if="!loading" class="text-center mt-5">
+        <b-spinner variant="warning" label="Spinning"></b-spinner>
+      </div>
     </form>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+import { validateEmail } from '../utils/validations'
 export default {
   name: 'Register',
   data() {
@@ -29,20 +33,45 @@ export default {
       form: {},
       repeatPass: '',
       code: '',
+      loading: true,
     }
   },
   methods: {
     ...mapActions(['REGISTER']),
     Register() {
-      this.form.id_gym = 1
-      this.REGISTER(this.form)
-        .then((response) => {
-          this.$snotify.success('Usuario registrado satisfactoriamente')
-          this.$router.replace({ name: 'Inventory' })
-        })
-        .catch((error) => {
-          this.$snotify.error('Usuario ya existente')
-        })
+      this.loading = false
+
+      if (
+        !this.form.name_admin ||
+        !this.form.email ||
+        !this.form.password ||
+        this.repeatPass == '' ||
+        this.code == ''
+      ) {
+        this.$snotify.error('Error, debes llenar todos los campos.')
+        this.loading = true
+      } else if (!validateEmail(this.form.email)) {
+        this.$snotify.error('Email no valido')
+        this.loading = true
+      } else if (this.form.password != this.repeatPass) {
+        this.$snotify.error('Las contraseñas no coiciden')
+        this.loading = true
+      } else if (this.code != '033') {
+        this.$snotify.error('El codigo interno no es válido')
+        this.loading = true
+      } else {
+        this.form.id_gym = 1
+        this.REGISTER(this.form)
+          .then((response) => {
+            this.$snotify.success('Usuario registrado satisfactoriamente')
+            this.$router.replace({ name: 'Inventory' })
+            this.loading = true
+          })
+          .catch((error) => {
+            this.$snotify.error('Usuario ya existente')
+            this.loading = true
+          })
+      }
     },
   },
 }
