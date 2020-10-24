@@ -33,9 +33,7 @@
       </div>
     </div>
     <router-view />
-    <div v-if="!loading" class="text-center">
-      <b-spinner variant="warning" label="Spinning"></b-spinner>
-    </div>
+
     <vue-snotify></vue-snotify>
   </div>
 </template>
@@ -44,7 +42,7 @@
 import { mapGetters } from 'vuex'
 export default {
   computed: {
-    ...mapGetters(['tokenAuth', 'loading']),
+    ...mapGetters(['tokenAuth']),
   },
 }
 </script>

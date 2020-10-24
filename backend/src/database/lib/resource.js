@@ -27,17 +27,23 @@ module.exports = function (){
         return await getResourceById(id_resource)
     
     } 
-async function createResource(id_resource,name_resource,description,id_gym){
+async function createResource(reference,name_resource,description,id_gym){
 
-        await pool.query('INSERT INTO resource (id_resource,name_resource,description,id_gym) VALUES ($1,$2,$3,$4)',[id_resource,name_resource,description,id_gym])
-        return await getResourceById(id_resource)
+        await pool.query('INSERT INTO resource (reference,name_resource,description,id_gym) VALUES ($1,$2,$3,$4)',[reference,name_resource,description,id_gym])
+        return await getResourceByReference(reference)
     }
+	async function getResourceByReference(reference){
+
+		let resource = await pool.query('SELECT * FROM resource WHERE reference = $1',[reference])
+		return resource.rows[0]
+	}
 
     return {
         getResources,
         getResourceById,
         createResource,
         updateResource,
-        deleteResource
+        deleteResource,
+				getResourceByReference
        } 
     }

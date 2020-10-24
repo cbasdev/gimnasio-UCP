@@ -7,36 +7,18 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     tokenAuth: localStorage.getItem('tokenAuth') || '',
-    users: [],
-    inventory: [],
-    loading: true,
   },
   getters: {
     tokenAuth: (state) => state.tokenAuth,
-    inventory: (state) => state.inventory,
-    loading: (state) => state.loading,
-    users: (state) => state.users,
   },
   mutations: {
     SET_TOKEN(state, newToken) {
       state.tokenAuth = newToken
-      state.loading = true
     },
-    SET_INVENTORY(state, inventoryData) {
-      state.inventory = inventoryData
-      state.loading = true
-    },
-    SET_USERS(state, listUsers) {
-      state.users = listUsers
-      state.loading = true
-    },
+
     DELETE_CREDENTIALS(state) {
       state.tokenAuth = ''
       localStorage.removeItem('tokenAuth')
-      state.loading = true
-    },
-    LOADING(state) {
-      state.loading = false
     },
   },
   actions: {
@@ -46,7 +28,6 @@ export default new Vuex.Store({
           .post('http://localhost:3000/api/auth/login', formData)
           .then((response) => {
             localStorage.setItem('tokenAuth', response.data.token)
-
             commit('SET_TOKEN', response.data.token)
             resolve(true)
           })
@@ -54,13 +35,12 @@ export default new Vuex.Store({
       })
     },
     async REGISTER({ commit }, formData) {
-      console.log('data to send --> ', formData)
       return new Promise((resolve, reject) => {
         axios
           .post('http://localhost:3000/api/admin', formData)
           .then((response) => {
             commit('SET_TOKEN', response.data.token)
-            localStorage.setItem(tokenAuth, response.data.token)
+            localStorage.setItem('tokenAuth', response.data.token)
             resolve(true)
           })
           .catch((error) => reject(error))
@@ -89,16 +69,16 @@ export default new Vuex.Store({
           console.log('error al obtener inventario', error)
         })
     },
-    async ADD_USER({ commit }, userData) {
+    async ADD_USER({ commit, dispatch }, userData) {
       commit('LOADING')
       axios
         .post('http://localhost:3000/api/user', userData)
         .then((response) => {
-          return true
+          dispatch('GET_USERS').then(() => {
+            resolve(true)
+          })
         })
-        .catch((error) => {
-          console.log('error al obtener inventario', error)
-        })
+        .catch((error) => reject(error))
     },
     async CLOSE_SESSION({ commit }) {
       commit('DELETE_CREDENTIALS')
