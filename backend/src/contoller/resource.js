@@ -76,7 +76,7 @@ async function deleteResource(req,res){
             message:'El recurso no existe'
         })
         return res.status(200).send({
-            message:'El usuario ha sido eliminado'
+            message:'El recurso ha sido eliminado'
         })
 
     }catch(err){
