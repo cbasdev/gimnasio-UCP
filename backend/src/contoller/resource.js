@@ -66,7 +66,7 @@ async function updateResource(req,res){
 }
 
 async function deleteResource(req,res){
-    let {id_resource} = req.body
+    let {id_resource} =  req.params
     if(!id_resource) return res.status(400).send({
         message:'Faltan argumento',ok:false
     })
