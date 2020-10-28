@@ -21,8 +21,8 @@ module.exports = function (){
         return query.rowCount ? true : false
     }
 
-    async function updateResource(id_resource,name_resource,description,id_gym){
-        let query = await pool.query('UPDATE resource SET  name_resource = $1 , description = $2 , id_gym = $3 WHERE id_resource = $4 ',[name_resource,description,id_gym,id_resource])
+    async function updateResource(id_resource,name_resource,description,id_gym,reference){
+        let query = await pool.query('UPDATE resource SET  name_resource = $1 , description = $2 , id_gym = $3 ,reference = $4 WHERE id_resource = $5 ',[name_resource,description,id_gym,reference,id_resource])
         if (!query.rowCount) return null
         return await getResourceById(id_resource)
     
