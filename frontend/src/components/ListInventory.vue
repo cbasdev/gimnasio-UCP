@@ -158,7 +158,7 @@ export default {
     },
     removeResource(id) {
       axios
-        .delete('http://localhost:3000/api/resource' + id)
+        .delete(`http://localhost:3000/api/resource/${id}`)
         .then((res) => {
           this.$snotify.success('Recurso eliminado satisfactoriamente')
           this.loadData()

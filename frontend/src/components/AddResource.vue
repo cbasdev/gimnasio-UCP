@@ -21,16 +21,24 @@ export default {
   },
   methods: {
     addResource() {
-      this.form.id_gym = 1
-      axios
-        .post('http://localhost:3000/api/resource', this.form)
-        .then((response) => {
-          this.$snotify.success('Inventario registrado satisfactoriamente')
-          location.reload()
-        })
-        .catch((error) => {
-          this.$snotify.error('Error al agregar inventario: ', error)
-        })
+      if (
+        !this.form.reference ||
+        !this.form.name_resource ||
+        !this.form.description
+      ) {
+        this.$snotify.error('Error, debes llenar todos los campos.')
+      } else {
+        this.form.id_gym = 1
+        axios
+          .post('http://localhost:3000/api/resource', this.form)
+          .then((response) => {
+            this.$snotify.success('Inventario registrado satisfactoriamente')
+            location.reload()
+          })
+          .catch((error) => {
+            this.$snotify.error('Error al agregar inventario: ', error)
+          })
+      }
     },
   },
 }

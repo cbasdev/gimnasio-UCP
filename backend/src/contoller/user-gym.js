@@ -64,7 +64,7 @@ async function updateUser(req,res){
 }
 
 async function deleteUser(req,res){
-    let {dni} = req.body
+    let {dni} = req.params
     if (!dni) return res.status(400).send({
         message:'Faltan argumentos',
         ok:false

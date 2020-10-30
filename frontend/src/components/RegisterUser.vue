@@ -16,8 +16,9 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 import moment from 'moment'
+import axios from 'axios'
+import { validateName, validateNumber } from '../utils/validations'
 export default {
   name: 'RegisterUser',
   data() {
@@ -27,19 +28,34 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['ADD_USER']),
     addNewUser() {
-      this.form.date_in = moment().format('DD/MM/YYYY')
-      this.form.last_date_in = moment().format('DD/MM/YYYY')
-      this.form.id_gym = 1
-      this.ADD_USER(this.form)
-        .then(() => {
-          this.$snotify.success('Usuario registrado satisfactoriamente')
-          this.$emit('reload')
-        })
-        .catch((error) => {
-          this.$snotify.error('Error al registrar usuario', error)
-        })
+      if (
+        !this.form.name_user ||
+        !this.form.dni ||
+        !this.form.acumulated_suscription
+      ) {
+        this.$snotify.error('Error, debes llenar todos los campos.')
+      } else if (!validateName(this.form.name_user)) {
+        this.$snotify.error('El nombre ingresado no es válido.')
+      } else if (!validateNumber(this.form.dni)) {
+        this.$snotify.error('La cédula ingresada no es válida.')
+      } else if (!validateNumber(this.form.acumulated_suscription)) {
+        this.$snotify.error('Los méses ingresados no son válidos')
+      } else {
+        this.form.date_in = moment().format('DD/MM/YYYY')
+        this.form.last_date_in = moment().format('DD/MM/YYYY')
+        this.form.id_gym = 1
+        axios
+          .post('http://localhost:3000/api/user', this.form)
+          .then(() => {
+            this.$snotify.success('Usuario registrado satisfactoriamente')
+            this.$router.go()
+          })
+          .catch((error) => {
+            console.log(error)
+            this.$snotify.error('El usuario ya existe')
+          })
+      }
     },
   },
 }
