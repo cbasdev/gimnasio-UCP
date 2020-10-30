@@ -11,10 +11,16 @@
         :current-page="currentPage"
         small
       >
-        <template #cell(Editar)="data">
+        <template #cell(Acción)="data">
           <!-- `data.value` is the value after formatted by the Formatter -->
           <button class="btn btn-warning" @click="openModalEdit(data)">
-            {{ data.value }}
+            {{ data.value.edit }}
+          </button>
+          <button
+            class="btn ml-1 btn-danger"
+            @click="removeResource(data.item.id)"
+          >
+            {{ data.value.remove }}
           </button>
           <modal :height="320" :name="'modal' + data.index">
             <div class="container-modal">
@@ -83,24 +89,28 @@ export default {
       rows: 0,
       edit: {},
       test: '',
+      modalOpen: '',
     }
   },
   mounted() {
-    this.loading = false
-    axios
-      .get('http://localhost:3000/api/resources')
-      .then((response) => {
-        const data = response.data.resources
-        const sortData = data.sort(this.compare)
-        this.items = this.listInventory(sortData)
-        this.rows = this.items.length
-        this.loading = true
-      })
-      .catch((error) => {
-        this.loading = true
-      })
+    this.loadData()
   },
   methods: {
+    loadData() {
+      this.loading = false
+      axios
+        .get('http://localhost:3000/api/resources')
+        .then((response) => {
+          const data = response.data.resources
+          const sortData = data.sort(this.compare)
+          this.items = this.listInventory(sortData)
+          this.rows = this.items.length
+          this.loading = true
+        })
+        .catch((error) => {
+          this.loading = true
+        })
+    },
     compare(a, b) {
       if (a.id_resource < b.id_resource) {
         return -1
@@ -117,19 +127,47 @@ export default {
           Referencia: index.reference,
           Nombre: index.name_resource,
           Descripción: index.description,
-          Editar: 'Editar',
+          Acción: { edit: 'Editar', remove: 'Eliminar' },
         }
       })
       return newList
     },
     openModalEdit(resource) {
       this.$modal.show(`modal${resource.index}`)
+      this.modalOpen = `modal${resource.index}`
     },
     editResource(resource) {
       this.edit.name_resource = resource.Nombre
       this.edit.description = resource.Descripción
       this.edit.reference = resource.Referencia
-      console.log(this.edit)
+      this.edit.id_resource = resource.id
+      this.edit.id_gym = 1
+      axios
+        .put('http://localhost:3000/api/resource', this.edit)
+        .then((res) => {
+          this.$snotify.success('Recurso editado satisfactoriamente')
+          this.$modal.hide(this.modalOpen)
+          this.loadData()
+        })
+        .catch((err) => {
+          console.log(err)
+          this.$snotify.error('Error editando el recurso: ', err)
+          this.$modal.hide(this.modalOpen)
+          this.loadData()
+        })
+    },
+    removeResource(id) {
+      axios
+        .delete(`http://localhost:3000/api/resource/${id}`)
+        .then((res) => {
+          this.$snotify.success('Recurso eliminado satisfactoriamente')
+          this.loadData()
+        })
+        .catch((err) => {
+          console.log(err)
+          this.$snotify.error('Error eliminando el recurso: ', err)
+          this.loadData()
+        })
     },
   },
 }
