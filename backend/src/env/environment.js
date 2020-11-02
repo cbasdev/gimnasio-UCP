@@ -15,10 +15,10 @@ let config = {
     database: process.env.DB_NAME,
   },
   dev: {
-    user: process.env.DB_USER || 'postgres',
-    host: process.env.DB_HOST || 'localhost',
-    password: process.env.DB_PASS || 'password',
-    database: process.env.DB_NAME || 'gimnasioucp',
+    user: process.env.DB_USER || '',
+    host: process.env.DB_HOST || '',
+    password: process.env.DB_PASS || '',
+    database: process.env.DB_NAME || '',
   },
 }
 

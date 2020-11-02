@@ -110,8 +110,13 @@ async function getUser(req,res){
 function verifyMonths(last_date_in,months){
     console.log(last_date_in)
     let date_now = moment()
-    let date = moment(last_date_in)
-    let date_add = date.add(months,'M')
+    let date = moment(last_date_in,'DD-MM-YYYY')
+		let date_add = moment(last_date_in,'DD-MM-YYYY')
+		console.debug('date', date)
+		date_now = date_now.add(1,'days')
+    date_add = date_add.add(months,'months')
+		console.log(date_add)
+		console.debug(date_now.isBetween(date,date_add))
     return date_now.isBetween(date,date_add)
     
 }
@@ -119,7 +124,7 @@ function verifyMonths(last_date_in,months){
 async function payMonth(req,res){
     let {pay_months} = req.body
 
-    let date_now = moment().format('YYYY-MM-DD')
+    let date_now = moment().format('DD-MM-YYYY')
     let {dni} = req.params
     let user = await userGym.getUserByDni(dni)
     if (!user) return res.status(404).send({
