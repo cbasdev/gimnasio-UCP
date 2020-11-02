@@ -40,11 +40,11 @@ async function listUsers(req,res){
 
 
 async function updateUser(req,res){
-    let {name_user,dni,new_dni} = req.body
+    let {name_user,dni,new_dni,acumulated_suscription} = req.body
     if(!new_dni) new_dni = dni
     try{
 
-        let user = await userGym.updateUser(name_user,dni,new_dni)
+        let user = await userGym.updateUser(name_user,dni,new_dni,acumulated_suscription)
         if(!user) return res.status(404).send({
             message:'El id del usuario no existe'
         })
@@ -55,6 +55,7 @@ async function updateUser(req,res){
 
 
     }catch(err){
+				console.debug(err)
         return res.status(500).send({
             message: 'Error al actualizar el usuario',
             ok:false

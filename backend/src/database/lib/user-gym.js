@@ -54,6 +54,28 @@ module.exports = function () {
     return await getUserByDni(dni)
   }
 
+<<<<<<< HEAD
+    async function updateUser(name_user,dni,new_dni,acumulated_suscription){
+        let query =  await pool.query('UPDATE user_gym SET name_user = $1 , dni = $2 , acumulated_suscription = $3 WHERE dni = $4',[name_user,new_dni,acumulated_suscription,dni])
+        if (!query.rowCount) return null
+        return await getUserByDni(new_dni)
+     }
+
+     async function updateLastDateInAndAcumulatedSuscription(dni,last_date_in,acumulated_suscription){
+
+        await pool.query('UPDATE user_gym SET last_date_in = $1 , acumulated_suscription = $2 WHERE dni = $3',[last_date_in,acumulated_suscription,dni])
+        return await getUserByDni(dni)
+     }
+
+    return {
+        createUser,
+        getUsers,
+        deleteUser,
+        updateUser,
+        getUserByDni,
+        updateLastDateInAndAcumulatedSuscription
+    }
+=======
   return {
     createUser,
     getUsers,
@@ -62,4 +84,5 @@ module.exports = function () {
     getUserByDni,
     updateLastDateInAndAcumulatedSuscription,
   }
+>>>>>>> 792d04626bc87fc18ebf6832c917cdd8c03f359c
 }
