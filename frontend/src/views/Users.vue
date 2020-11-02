@@ -18,7 +18,7 @@
       </div>
       <div class="col-md-8">
         <div v-if="selectPanel == 'ListUsers'">
-          <ListUsers v-if="loading" :listInv="users" />
+          <ListUsers />
         </div>
         <div v-if="selectPanel == 'SearchUser'"><SearchUser /></div>
         <div v-if="selectPanel == 'RenewUser'"><RenewUser /></div>
@@ -33,8 +33,6 @@ import SearchUser from '../components/SearchUser'
 import RenewUser from '../components/RenewUser'
 import RegisterUser from '../components/RegisterUser'
 import ListUsers from '../components/ListUsers'
-import { mapActions } from 'vuex'
-import { mapGetters } from 'vuex'
 export default {
   name: 'Users',
   components: {
@@ -47,15 +45,6 @@ export default {
     return {
       selectPanel: 'ListUsers',
     }
-  },
-  mounted() {
-    this.GET_USERS()
-  },
-  methods: {
-    ...mapActions(['GET_USERS']),
-  },
-  computed: {
-    ...mapGetters(['users', 'loading']),
   },
 }
 </script>

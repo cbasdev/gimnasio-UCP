@@ -7,25 +7,18 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     tokenAuth: localStorage.getItem('tokenAuth') || '',
-    loading: true,
   },
   getters: {
     tokenAuth: (state) => state.tokenAuth,
-    loading: (state) => state.loading,
   },
   mutations: {
     SET_TOKEN(state, newToken) {
       state.tokenAuth = newToken
-      state.loading = true
     },
 
     DELETE_CREDENTIALS(state) {
       state.tokenAuth = ''
       localStorage.removeItem('tokenAuth')
-      state.loading = true
-    },
-    LOADING(state) {
-      state.loading = false
     },
   },
   actions: {
@@ -35,7 +28,6 @@ export default new Vuex.Store({
           .post('http://localhost:3000/api/auth/login', formData)
           .then((response) => {
             localStorage.setItem('tokenAuth', response.data.token)
-
             commit('SET_TOKEN', response.data.token)
             resolve(true)
           })
@@ -43,7 +35,6 @@ export default new Vuex.Store({
       })
     },
     async REGISTER({ commit }, formData) {
-      console.log('data to send --> ', formData)
       return new Promise((resolve, reject) => {
         axios
           .post('http://localhost:3000/api/admin', formData)

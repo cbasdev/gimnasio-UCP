@@ -2,12 +2,13 @@
   <div>
     <h2>Renovar Usuario</h2>
     <form>
-      <input v-model="form.dni" placeholder="Cédula" />
+      <input v-model="form.dni" placeholder="Cédula" type="number" />
       <input
-        v-model="form.acumulated_suscription"
+        v-model="form.mounths"
+        type="number"
         placeholder="Meses de Suscripción"
       />
-      <button @click="addNewUser" class="btn btn-standar mt-4">
+      <button @click="renewUser" class="btn btn-standar mt-4">
         RENOVAR
       </button>
     </form>
@@ -21,6 +22,17 @@ export default {
     return {
       form: {},
     }
+  },
+  methods: {
+    renewUser() {
+      if (!this.form.dni || !this.form.mounths) {
+        this.$snotify.error('Error, debes llenar todos los campos.')
+      } else if (this.mounths > 100) {
+        this.$snotify.error('Error, cantidad de meses demasiado grande.')
+      } else {
+        console.log('ok')
+      }
+    },
   },
 }
 </script>
