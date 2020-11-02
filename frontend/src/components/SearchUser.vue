@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>CONSULTAR USUARIO</h2>
-    <form>
+    <div class="form-container">
       <input v-model="form.dni" placeholder="Cédula" />
 
       <button @click="searchUser()" class="btn btn-standar mt-4">
@@ -10,7 +10,7 @@
       <div v-if="!loading" class="text-center mt-5">
         <b-spinner variant="warning" label="Spinning"></b-spinner>
       </div>
-    </form>
+    </div>
 
     <modal :width="700" :height="520" name="modal-user">
       <div class="container-modal">
@@ -115,7 +115,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '../assets/theme.scss';
-form {
+.form-container {
   h2 {
     color: white;
     font-size: 2.5rem;

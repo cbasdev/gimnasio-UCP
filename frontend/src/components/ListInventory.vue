@@ -25,7 +25,7 @@
           <modal :height="320" :name="'modal' + data.index">
             <div class="container-modal">
               <h4>Editar Recurso</h4>
-              <form>
+              <div class="form-container">
                 <small>Referencia</small>
                 <input
                   class="form-control"
@@ -57,7 +57,7 @@
                 <div v-if="loadingModal" class="text-center mt-3">
                   <b-spinner variant="warning" label="Spinning"></b-spinner>
                 </div>
-              </form>
+              </div>
             </div>
           </modal>
         </template>

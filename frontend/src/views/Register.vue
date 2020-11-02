@@ -1,6 +1,6 @@
 <template>
   <div class="container-form">
-    <form>
+    <div class="form-container">
       <h1>JOSÉ SPORT GYM</h1>
       <input v-model="form.name_admin" type="text" placeholder="Nombre" />
       <input
@@ -19,7 +19,7 @@
       <div v-if="!loading" class="text-center mt-5">
         <b-spinner variant="warning" label="Spinning"></b-spinner>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -89,7 +89,7 @@ export default {
   height: 100vh;
   padding-top: 150px;
 }
-form {
+.form-container {
   h1 {
     color: white;
     font-size: 2.5rem;

@@ -1,12 +1,12 @@
 <template>
   <div>
     <h2>Agregar Nuevo Recurso</h2>
-    <form>
+    <div class="form-container">
       <input v-model="form.reference" placeholder="Identificador" />
       <input v-model="form.name_resource" placeholder="Nombre del Recurso" />
       <input v-model="form.description" placeholder="Descripción" />
       <button @click="addResource" class="btn btn-standar mt-4">AGREGAR</button>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -47,7 +47,7 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/theme.scss';
 
-form {
+.form-container {
   h2 {
     color: white;
     font-size: 2.5rem;

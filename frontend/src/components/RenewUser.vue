@@ -1,17 +1,20 @@
 <template>
   <div>
     <h2>Renovar Usuario</h2>
-    <form>
+    <div class="form-container">
       <input v-model="form.dni" placeholder="Cédula" type="number" />
       <input
         v-model="form.months"
         type="number"
         placeholder="Meses de Suscripción"
       />
-      <button @click="renewUser" class="btn btn-standar mt-4">
+      <button v-if="loading" @click="renewUser" class="btn btn-standar mt-4">
         RENOVAR
       </button>
-    </form>
+      <div v-if="!loading" class="text-center mt-5">
+        <b-spinner variant="warning" label="Spinning"></b-spinner>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -39,10 +42,11 @@ export default {
         axios
           .post(`http://localhost:3000/api/pay/months/${this.form.dni}`, data)
           .then((res) => {
-            console.log(res)
-            this.$router.go()
             this.$snotify.success('Usuario renovado satisfactoriamente')
-            this.loading = true
+            setTimeout(() => {
+              this.$router.go()
+              this.loading = true
+            }, 1000)
           })
           .catch(() => {
             this.$snotify.error('Error, no se pudo renovar el usuario')
@@ -55,7 +59,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-form {
+.form-container {
   h2 {
     color: white;
     font-size: 2.5rem;
