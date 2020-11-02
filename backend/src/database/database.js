@@ -1,11 +1,11 @@
 import { Pool } from 'pg'
 
-import  environment  from '../env/environment'
+import environment from '../env/environment'
 
-
+// Conexión con la base de datos
 const $db = environment
-//singleton
+
 let pool = null
-if(!pool) pool = new Pool($db)
+if (!pool) pool = new Pool($db)
 
 module.exports = pool

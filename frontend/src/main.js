@@ -11,6 +11,7 @@ const options = {
     position: SnotifyPosition.rightTop,
   },
 }
+
 Vue.use(VModal, {
   dynamicDefaults: {
     draggable: true,

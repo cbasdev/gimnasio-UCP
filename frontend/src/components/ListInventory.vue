@@ -25,7 +25,7 @@
           <modal :height="320" :name="'modal' + data.index">
             <div class="container-modal">
               <h4>Editar Recurso</h4>
-              <form>
+              <div class="form-container">
                 <small>Referencia</small>
                 <input
                   class="form-control"
@@ -40,7 +40,7 @@
                   v-bind:value="data.item.Nombre"
                   v-on:input="data.item.Nombre = $event.target.value"
                 />
-                <small>Descripción {{ data.item.Descripción }} </small>
+                <small>Descripción </small>
                 <input
                   class="form-control input-group-prepend"
                   type="text"
@@ -57,7 +57,7 @@
                 <div v-if="loadingModal" class="text-center mt-3">
                   <b-spinner variant="warning" label="Spinning"></b-spinner>
                 </div>
-              </form>
+              </div>
             </div>
           </modal>
         </template>
@@ -164,7 +164,6 @@ export default {
           this.loadData()
         })
         .catch((err) => {
-          console.log(err)
           this.$snotify.error('Error eliminando el recurso: ', err)
           this.loadData()
         })

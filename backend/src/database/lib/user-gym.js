@@ -1,5 +1,7 @@
 import pool from '../database'
 
+// Diferentes metodos que interactuan con la base de datos
+
 module.exports = function () {
   async function createUser(
     name_user,
@@ -37,6 +39,27 @@ module.exports = function () {
     let query = await pool.query(
       'UPDATE user_gym SET name_user = $1 , dni = $2 WHERE dni = $3',
       [name_user, new_dni, dni]
+    )
+    if (!query.rowCount) return null
+    return await getUserByDni(new_dni)
+  }
+
+  async function updateLastDateInAndAcumulatedSuscription(
+    dni,
+    last_date_in,
+    acumulated_suscription
+  ) {
+    await pool.query(
+      'UPDATE user_gym SET last_date_in = $1 , acumulated_suscription = $2 WHERE dni = $3',
+      [last_date_in, acumulated_suscription, dni]
+    )
+    return await getUserByDni(dni)
+  }
+
+  async function updateUser(name_user, dni, new_dni, acumulated_suscription) {
+    let query = await pool.query(
+      'UPDATE user_gym SET name_user = $1 , dni = $2 , acumulated_suscription = $3 WHERE dni = $4',
+      [name_user, new_dni, acumulated_suscription, dni]
     )
     if (!query.rowCount) return null
     return await getUserByDni(new_dni)

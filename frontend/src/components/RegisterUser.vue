@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Agregar Nuevo Usuario</h2>
-    <form>
+    <div class="form-container">
       <input v-model="form.name_user" placeholder="Nombre" />
       <input v-model="form.dni" placeholder="Cédula" />
       <input
@@ -11,7 +11,7 @@
       <button @click="addNewUser" class="btn btn-standar mt-4">
         AGREGAR
       </button>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-form {
+.form-container {
   h2 {
     color: white;
     font-size: 2.5rem;

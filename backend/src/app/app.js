@@ -5,29 +5,30 @@ import userGymRouter from '../routes/user-gym'
 import resourceRouter from '../routes/resource'
 import morgan from 'morgan'
 
-
 // Inicialización
 const app = express()
 // Configuraciónes
 
-//Para poder leer los archivos en .json
+// Para poder leer los archivos en .json
 app.use(express.json())
-app.use(express.urlencoded({extended:false}))
+app.use(express.urlencoded({ extended: false }))
 app.use(morgan('dev'))
 
-//cors
+// Permitir acceso a las peticiones http del backend
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
-    next();
-});
-//Routes
-require('../auth/auth')
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method'
+  )
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
+  res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE')
+  next()
+})
 
+// Rutas disponibles
 app.use('/api/auth', auth)
-app.use('/api',adminRouter)
-app.use('/api',userGymRouter)
-app.use('/api',resourceRouter)
+app.use('/api', adminRouter)
+app.use('/api', userGymRouter)
+app.use('/api', resourceRouter)
 export default app
