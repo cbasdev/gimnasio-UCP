@@ -12,11 +12,53 @@
       </div>
     </form>
 
-    <modal :width="900" :height="520" name="modal-user">
+    <modal :width="700" :height="520" name="modal-user">
       <div class="container-modal">
-        <h2>Datoss de usuario</h2>
-        <p>{{ user.dni }}</p>
-        <p>{{ user.name_user }}</p>
+        <h3>Datos de usuario</h3>
+
+        <div class="d-flex justify-content-between mt-4">
+          <div class="line">
+            Cédula:
+          </div>
+          <p>{{ user.dni }}</p>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <div class="line">
+            Nombre:
+          </div>
+          <p>{{ user.name_user }}</p>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <div class="line">
+            Primera Suscripción:
+          </div>
+          <p>{{ user.date_in }}</p>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <div class="line">
+            Última Suscripción:
+          </div>
+          <p>{{ user.last_date_in }}</p>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <div class="line">
+            Meses de Suscripción:
+          </div>
+          <p>{{ user.acumulated_suscription }}</p>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <div class="line">
+            Estado:
+          </div>
+          <p v-bind:class="isActive ? 'text-green' : 'text-red'">
+            {{ state }}
+          </p>
+        </div>
       </div>
     </modal>
   </div>
@@ -27,13 +69,20 @@ import axios from 'axios'
 import { mixins } from '@/mixins'
 
 export default {
+  mixins: [mixins],
   name: 'SearchUser',
   data() {
     return {
       form: {},
       user: {},
       loading: true,
+      state: 'Activa',
     }
+  },
+  computed: {
+    isActive() {
+      return this.state === 'Activo'
+    },
   },
   methods: {
     searchUser() {
@@ -42,8 +91,14 @@ export default {
         .get(`http://localhost:3000/api/user/${this.form.dni}`)
         .then((response) => {
           if (response.data.user.id_user) {
-            this.$modal.show(`modal-user`)
             this.user = response.data.user
+
+            this.state = this.getStateSuscription(
+              this.user.last_date_in,
+              this.user.acumulated_suscription
+            )
+
+            this.$modal.show(`modal-user`)
           } else {
             this.$snotify.error('No se encuentra el usuario')
           }
@@ -59,6 +114,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/theme.scss';
 form {
   h2 {
     color: white;
@@ -91,6 +147,27 @@ form {
     font-weight: 600;
     opacity: 0.9 !important;
     color: rgb(255, 255, 255);
+  }
+}
+.container-modal {
+  h3 {
+    color: $principal-color;
+    font-size: 3.4rem;
+  }
+  padding: 50px;
+  font-size: 1.8rem;
+  .d-flex {
+    padding: 0 20px 0 20px;
+  }
+  .line {
+    font-weight: 800;
+    display: inline;
+  }
+  .text-green {
+    color: $principal-color;
+  }
+  .text-red {
+    color: $secundary-color;
   }
 }
 </style>

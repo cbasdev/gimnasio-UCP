@@ -40,7 +40,7 @@
                   v-bind:value="data.item.Nombre"
                   v-on:input="data.item.Nombre = $event.target.value"
                 />
-                <small>Descripción {{ data.item.Descripción }} </small>
+                <small>Descripción </small>
                 <input
                   class="form-control input-group-prepend"
                   type="text"
@@ -164,7 +164,6 @@ export default {
           this.loadData()
         })
         .catch((err) => {
-          console.log(err)
           this.$snotify.error('Error eliminando el recurso: ', err)
           this.loadData()
         })
