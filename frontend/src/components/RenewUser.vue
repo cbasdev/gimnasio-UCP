@@ -4,7 +4,7 @@
     <form>
       <input v-model="form.dni" placeholder="Cédula" type="number" />
       <input
-        v-model="form.mounths"
+        v-model="form.months"
         type="number"
         placeholder="Meses de Suscripción"
       />
@@ -16,21 +16,38 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'RenewUser',
   data() {
     return {
       form: {},
+      loading: true,
     }
   },
   methods: {
     renewUser() {
-      if (!this.form.dni || !this.form.mounths) {
+      if (!this.form.dni || !this.form.months) {
         this.$snotify.error('Error, debes llenar todos los campos.')
-      } else if (this.mounths > 100) {
+      } else if (this.months > 100) {
         this.$snotify.error('Error, cantidad de meses demasiado grande.')
       } else {
-        console.log('ok')
+        this.loading = false
+        const data = {
+          pay_months: parseInt(this.form.months),
+        }
+        axios
+          .post(`http://localhost:3000/api/pay/months/${this.form.dni}`, data)
+          .then((res) => {
+            console.log(res)
+            this.$router.go()
+            this.$snotify.success('Usuario renovado satisfactoriamente')
+            this.loading = true
+          })
+          .catch(() => {
+            this.$snotify.error('Error, no se pudo renovar el usuario')
+            this.loading = true
+          })
       }
     },
   },

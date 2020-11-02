@@ -86,8 +86,7 @@
 <script>
 import axios from 'axios'
 import { mixins } from '@/mixins'
-import DatePicker from 'vue2-datepicker'
-import 'vue2-datepicker/index.css'
+
 export default {
   mixins: [mixins],
   data() {
@@ -108,9 +107,7 @@ export default {
   mounted() {
     this.loadData()
   },
-  components: {
-    DatePicker,
-  },
+
   methods: {
     loadData() {
       this.loading = false
@@ -174,9 +171,10 @@ export default {
           this.loadData()
         })
         .catch((err) => {
-          console.log(err)
+          console.log('EROR -> ', err)
           this.$snotify.error('Error editando el usuario: ', err)
           this.$modal.hide(this.modalOpen)
+
           this.loadData()
         })
     },
