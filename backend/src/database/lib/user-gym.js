@@ -24,8 +24,8 @@ module.exports = function (){
         return query.rowCount ? true : false
     }
 
-    async function updateUser(name_user,dni,new_dni){
-        let query =  await pool.query('UPDATE user_gym SET name_user = $1 , dni = $2 WHERE dni = $3',[name_user,new_dni,dni])
+    async function updateUser(name_user,dni,new_dni,acumulated_suscription){
+        let query =  await pool.query('UPDATE user_gym SET name_user = $1 , dni = $2 , acumulated_suscription = $3 WHERE dni = $4',[name_user,new_dni,acumulated_suscription,dni])
         if (!query.rowCount) return null
         return await getUserByDni(new_dni)
      }
