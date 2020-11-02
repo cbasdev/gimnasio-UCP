@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import Snotify, { SnotifyPosition } from 'vue-snotify'
+import VModal from 'vue-js-modal'
 
 const options = {
   toast: {
@@ -11,6 +12,13 @@ const options = {
   },
 }
 
+Vue.use(VModal, {
+  dynamicDefaults: {
+    draggable: true,
+    resizable: true,
+    height: 'auto',
+  },
+})
 Vue.use(Snotify, options)
 // Install BootstrapVue
 Vue.use(BootstrapVue)

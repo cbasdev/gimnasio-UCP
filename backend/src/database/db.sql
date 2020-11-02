@@ -60,11 +60,3 @@ add foreign key (id_gym) references gym(id_gym);
 insert into gym (name_gym) values ('JOSE SPORT GYM');
 
 
-insert into 
-user_gym (dni, date_in, last_date_in, acumulated_suscription, id_gym, name_user) values ('1093228134', '06/09/2019', '01/01/2020', '12', 1, 'Sebastian Velez Montoya');
-
-insert into
-admin (name_admin, email, password, id_gym) values ('Sebastian Admin', 'sebasttianvelez@gmail.com', '123123', 1);
-
-insert into
-resource (name_resource, description, id_gym) values ('Mancuerna 15kg', 'Algo desgastada, es necesario cambiarla', 1);
