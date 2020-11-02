@@ -1,5 +1,7 @@
 import pool from '../database'
 
+// Diferentes metodos que interactuan con la base de datos
+
 module.exports = function () {
   async function createUser(
     name_user,

@@ -1,15 +1,12 @@
 import { Router } from 'express'
-import { pool } from '../database/database'
-import jwt from 'jsonwebtoken'
-import { encryptPassword } from '../utils/authentication'
 import passport from 'passport'
-import {login} from '../contoller/auth'
+import { login } from '../contoller/auth'
 
 // Models
-import { Admin } from '../models/Admin'
 
 const router = Router()
 
+// Methodo para realizar registro
 router.post(
   '/signup',
   passport.authenticate('signup', { session: false }),
@@ -21,9 +18,7 @@ router.post(
   }
 )
 
-router.post('/login',login)
-
-
-
+// Methodo para realizar inicio de sesión
+router.post('/login', login)
 
 export default router

@@ -162,7 +162,6 @@ export default {
       this.edit.new_dni = user.Cedula
       this.edit.acumulated_suscription = user.Meses_pagados
       this.edit.id_gym = 1
-      console.log(this.edit)
       axios
         .put('http://localhost:3000/api/user', this.edit)
         .then((res) => {
@@ -171,7 +170,6 @@ export default {
           this.loadData()
         })
         .catch((err) => {
-          console.log('EROR -> ', err)
           this.$snotify.error('Error editando el usuario: ', err)
           this.$modal.hide(this.modalOpen)
 
@@ -201,7 +199,6 @@ export default {
     },
 
     deleteUser(data) {
-      console.log('data --> ', data.item.Cedula)
       axios
         .delete(`http://localhost:3000/api/user/${data.item.Cedula}`)
         .then((res) => {
