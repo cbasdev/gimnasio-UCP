@@ -110,8 +110,13 @@ async function getUser(req,res){
 function verifyMonths(last_date_in,months){
     console.log(last_date_in)
     let date_now = moment()
-    let date = moment(last_date_in)
-    let date_add = date.add(months,'M')
+    let date = moment(last_date_in,'YYYY-MM-DD')
+		let date_add = moment(last_date_in,'YYYY-MM-DD')
+		console.debug('date', date)
+		date_now = date_now.add(1,'days')
+    date_add = date_add.add(months,'months')
+		console.log(date_add)
+		console.debug(date_now.isBetween(date,date_add))
     return date_now.isBetween(date,date_add)
     
 }
