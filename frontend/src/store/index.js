@@ -7,18 +7,25 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     tokenAuth: localStorage.getItem('tokenAuth') || '',
+    email: localStorage.getItem('email') || '',
   },
   getters: {
     tokenAuth: (state) => state.tokenAuth,
+    email: (state) => state.email,
   },
   mutations: {
     SET_TOKEN(state, newToken) {
       state.tokenAuth = newToken
     },
+    SET_EMAIL(state, email) {
+      state.email = email
+    },
 
     DELETE_CREDENTIALS(state) {
       state.tokenAuth = ''
       localStorage.removeItem('tokenAuth')
+      state.email = ''
+      localStorage.removeItem('email')
     },
   },
   actions: {
@@ -28,7 +35,9 @@ export default new Vuex.Store({
           .post('http://localhost:3000/api/auth/login', formData)
           .then((response) => {
             localStorage.setItem('tokenAuth', response.data.token)
+            localStorage.setItem('email', formData.email)
             commit('SET_TOKEN', response.data.token)
+            commit('SET_EMAIL', formData.email)
             resolve(true)
           })
           .catch((error) => reject(error))
@@ -39,8 +48,10 @@ export default new Vuex.Store({
         axios
           .post('http://localhost:3000/api/admin', formData)
           .then((response) => {
-            commit('SET_TOKEN', response.data.token)
             localStorage.setItem('tokenAuth', response.data.token)
+            localStorage.setItem('email', formData.email)
+            commit('SET_TOKEN', response.data.token)
+            commit('SET_EMAIL', formData.email)
             resolve(true)
           })
           .catch((error) => reject(error))

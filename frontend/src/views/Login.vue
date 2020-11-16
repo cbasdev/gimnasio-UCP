@@ -1,7 +1,7 @@
 <template>
   <div class="container-form">
     <div class="form-container">
-      <h1>JOSÉ SPORT GYM</h1>
+      <h1>JOSE SPORT GYM</h1>
       <input
         v-model="form.email"
         type="email"

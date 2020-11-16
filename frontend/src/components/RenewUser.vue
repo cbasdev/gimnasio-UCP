@@ -59,27 +59,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h2 {
+  margin-top: 30px;
+}
 .form-container {
-  h2 {
-    color: white;
-    font-size: 2.5rem;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    margin-bottom: 50px;
-  }
   margin-right: auto;
   margin-left: auto;
   text-align: center;
-  padding: 40px;
+  padding: 10px;
   input {
     font-family: 'Muli', sans-serif;
-
+    text-align: center;
     color: white;
     padding: 10px;
     border-radius: 3px;
     background-color: rgba(255, 255, 255, 0.253);
     margin-top: 10px;
-    width: 100%;
+    width: 60%;
     display: block;
     margin-right: auto;
     margin-left: auto;

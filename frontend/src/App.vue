@@ -3,11 +3,7 @@
     <div id="nav" v-if="!tokenAuth">
       <div class="logo">
         <router-link to="/">
-          <img
-            @click="this.$router.replace({ name: 'Home' })"
-            src="./assets/logo.png"
-            alt="logo"
-          />
+          <img src="./assets/logo.png" alt="logo" />
         </router-link>
       </div>
       <div class="end">
@@ -19,11 +15,8 @@
     <div id="nav" v-if="tokenAuth">
       <div class="logo">
         <router-link to="/users">
-          <img
-            @click="this.$router.replace({ name: 'Home' })"
-            src="./assets/logo.png"
-            alt="logo"
-          />
+          <img src="./assets/logo.png" alt="logo" />
+          <small class="ml-4"> {{ email }} </small>
         </router-link>
       </div>
       <div class="end">
@@ -42,7 +35,7 @@
 import { mapGetters } from 'vuex'
 export default {
   computed: {
-    ...mapGetters(['tokenAuth']),
+    ...mapGetters(['tokenAuth', 'email']),
   },
 }
 </script>

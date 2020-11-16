@@ -2,7 +2,7 @@
   <div class="container-user">
     <h1>Panel de administración de Inventario</h1>
     <div class="row">
-      <div class="col-md-4 mt-5">
+      <div class="col-md-3 mt-5">
         <button class="btn btn-light" @click="selectPanel = 'ListInventory'">
           Ver Inventario
         </button>
@@ -11,7 +11,7 @@
           Agregar Recurso
         </button>
       </div>
-      <div class="col-md-8 ">
+      <div class="col-md-9 ">
         <div v-if="selectPanel == 'ListInventory'">
           <ListInventory />
         </div>
@@ -52,7 +52,7 @@ export default {
   text-align: center;
   .row {
     margin: 0;
-    padding: 50px 10% 0px 10%;
+    padding: 50px 5% 0px 5%;
   }
 
   button {
@@ -60,13 +60,18 @@ export default {
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
-    width: 50%;
+    width: 90%;
     padding: 5px;
     text-transform: uppercase;
-    letter-spacing: 4px;
+    letter-spacing: 0px;
+  }
+  button:focus {
+    background: #47ba4b !important;
   }
 }
 h1 {
+  text-align: right;
+  margin-right: 10%;
   color: white;
 }
 </style>

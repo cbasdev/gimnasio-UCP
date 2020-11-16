@@ -83,7 +83,7 @@ export default {
     return {
       loadingModal: false,
       loading: false,
-      perPage: 10,
+      perPage: 7,
       currentPage: 1,
       items: [],
       rows: 0,
@@ -123,7 +123,6 @@ export default {
     listInventory(listData) {
       let newList = listData.map((index) => {
         return {
-          id: index.id_resource,
           Referencia: index.reference,
           Nombre: index.name_resource,
           Descripción: index.description,

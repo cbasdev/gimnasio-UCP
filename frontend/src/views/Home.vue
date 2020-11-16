@@ -1,7 +1,7 @@
 <template>
   <div class="container-form text-center">
     <h1 class="title">BIENVENIDO</h1>
-    <h1>JOSÉ SPORT GYM</h1>
+    <h1>JOSE SPORT GYM</h1>
 
     <div @click="$router.push('/login')" class="btn btn-standar mr-4">
       INICIAR SESION

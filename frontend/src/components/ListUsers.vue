@@ -93,7 +93,7 @@ export default {
     return {
       loadingModal: false,
       loading: false,
-      perPage: 10,
+      perPage: 7,
       currentPage: 1,
       items: [],
       rows: 0,
@@ -139,11 +139,16 @@ export default {
           index.last_date_in,
           index.acumulated_suscription
         )
+        const limited = this.getLimitDate(
+          index.last_date_in,
+          index.acumulated_suscription
+        )
         return {
           Nombre: index.name_user,
           Cedula: index.dni,
-          Fecha_de_Ingreso: index.date_in,
-          Ultima_Fecha_de_Suscripción: index.last_date_in,
+          Ingreso: index.date_in,
+          Ultima_Fecha_de_Pago: index.last_date_in,
+          Vencimiento: limited,
           Meses_pagados: index.acumulated_suscription,
           Estado: state,
           Acción: 'Eliminar',

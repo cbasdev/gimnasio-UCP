@@ -32,16 +32,23 @@
 
         <div class="d-flex justify-content-between">
           <div class="line">
-            Primera Suscripción:
+            Ingreso:
           </div>
           <p>{{ user.date_in }}</p>
         </div>
 
         <div class="d-flex justify-content-between">
           <div class="line">
-            Última Suscripción:
+            Última Fecha de Pago:
           </div>
           <p>{{ user.last_date_in }}</p>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <div class="line">
+            Fecha de Vencimiento:
+          </div>
+          <p>{{ limited }}</p>
         </div>
 
         <div class="d-flex justify-content-between">
@@ -77,6 +84,7 @@ export default {
       user: {},
       loading: true,
       state: 'Activa',
+      limited: '0/0/0',
     }
   },
   computed: {
@@ -94,6 +102,10 @@ export default {
             this.user = response.data.user
 
             this.state = this.getStateSuscription(
+              this.user.last_date_in,
+              this.user.acumulated_suscription
+            )
+            this.limited = this.getLimitDate(
               this.user.last_date_in,
               this.user.acumulated_suscription
             )
@@ -115,27 +127,23 @@ export default {
 
 <style lang="scss" scoped>
 @import '../assets/theme.scss';
+h2 {
+  margin-top: 30px;
+}
 .form-container {
-  h2 {
-    color: white;
-    font-size: 2.5rem;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    margin-bottom: 50px;
-  }
   margin-right: auto;
   margin-left: auto;
   text-align: center;
-  padding: 40px;
+  padding: 10px;
   input {
     font-family: 'Muli', sans-serif;
-
+    text-align: center;
     color: white;
     padding: 10px;
     border-radius: 3px;
     background-color: rgba(255, 255, 255, 0.253);
     margin-top: 10px;
-    width: 100%;
+    width: 60%;
     display: block;
     margin-right: auto;
     margin-left: auto;
@@ -152,10 +160,10 @@ export default {
 .container-modal {
   h3 {
     color: $principal-color;
-    font-size: 3.4rem;
+    font-size: 2.5rem;
   }
   padding: 50px;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   .d-flex {
     padding: 0 20px 0 20px;
   }
